@@ -1,0 +1,38 @@
+\subsection{Architectuur}
+\frame{\tableofcontents[currentsubsection]}
+
+\begin{frame}
+    \frametitle{Architectuur}
+    \begin{center}
+        \begin{tikzpicture}
+            \node (computer) { \includegraphics[width=2cm]{images/computer.png} } node[anchor=north] at (computer.south) { \parbox{2cm}{\centering TypeScript \\ React \\ Mantine} };
+            \node[anchor=west] (server) at ($ (computer) + (3,0) $) { \includegraphics[width=2cm]{images/server.png} } node[anchor=north] at (server.south) { \parbox{2cm}{\centering Go \\ Gin} };
+            \node[anchor=west] (database) at ($ (server) + (3,0) $) { \includegraphics[width=2cm]{images/database.png} } node[anchor=north] at (database.south) { SQLite3 };
+
+            \draw[-latex,ultra thick] (computer) -- (server) node[midway,above] { JSON };
+            \draw[-latex,ultra thick] (server) -- (database) node[midway,above] { SQL };
+        \end{tikzpicture}
+    \end{center}
+
+    \begin{tikzpicture}[overlay, remember picture]
+        \node[anchor=south east,font=\tiny] at (current page.south east)  {
+            images: Flaticon.com
+        };
+    \end{tikzpicture}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Motivering}
+    \structure{Waarom Go?}
+    \begin{itemize}
+        \item Garbage collection
+        \item Statisch getypeerd
+        \item Effici\"ent
+        \item Compilatie leidt tot \'e\'en executable zonder afhankelijkheden dankzij statically linked libraries
+    \end{itemize}
+
+    \structure{Waarom SQLite3?}
+    \begin{itemize}
+        \item
+    \end{itemize}
+\end{frame}

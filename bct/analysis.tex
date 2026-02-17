@@ -1,0 +1,94 @@
+\subsection{Analyse}
+\frame{\tableofcontents[currentsubsection]}
+
+\begin{frame}
+    \frametitle{Brussels Childbirth Trust}
+    \begin{quotation}
+        The Brussels Childbirth Trust is a volunteer-run, not-for-profit organisation that supports parents and families here in Belgium.
+        We are the leading source of pregnancy, prenatal and parenting information in English.
+        We are also a social and support community, helping you and your family to get out and about and meet other English-speaking families for playdates, learning and fun!
+    \end{quotation}
+    \begin{flushright}
+        --- \href{https://bctbelgium.org/}{https://bctbelgium.org/}
+    \end{flushright}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Verhaal}
+    \structure{Probleemstelling}
+    \begin{itemize}
+        \item Kindjes groeien snel
+        \item Duur om hun garderobe up to date te houden wegens constante ontgroeiing
+    \end{itemize}
+
+    \structure{Oplossing}
+    \begin{itemize}
+        \item \href{https://bct-sales.myaddr.io}{https://bct-sales.myaddr.io}
+        \item Soort van Vinted
+        \item Tweedehandskledij
+        \item Leden stellen hun kinderkleding te koop via website
+        \item Verkoopdag
+            \begin{itemize}
+                \item Alle artikels worden ingezameld op \'e\'en locatie
+                \item Bezoekers kunnen artikels inspecteren en kopen
+            \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Organisatie: V\'o\'or de verkoopdag}
+    \begin{itemize}
+        \item \textit{Sellers} registreren hun artikels via website
+        \item Elk artikel krijgt uniek nummer (ID) toegewezen
+        \item Elk artikel krijgt een etiket
+            \begin{itemize}
+                \item Prijs
+                \item ID
+                \item Barcode-encodering van ID
+                \item Beschrijving (antifraude)
+            \end{itemize}
+        \item Website genereert deze etiketten als PDF
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Organisatie: Op de verkoopdag}
+    \begin{itemize}
+        \item \textit{Cashiers} gebruiken website om verkopen te registreren
+            \begin{itemize}
+                \item Voeren IDs van gekochte artikels in
+                \item Website toont prijs/beschrijving
+                \item Cashier rondt artikelselectie af
+                \item Website toont totaal
+                \item Betaling wordt afgehandeld via Payconiq
+                \item Cashier bevestigt verkoop
+            \end{itemize}
+        \item Barcodescanner voor snellere, minder foutgevoelige invoer IDs
+        \item Website moet toelaten meermaals zelfde artikel te verkopen
+        \item \textit{Admin} ziet verkoopcijfers in realtime
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Organisatie: Na de verkoopdag}
+    \begin{itemize}
+        \item \textit{Admin} vraagt verkochte artikels op
+        \item Data uitvoeren naar CSV
+        \item Admin stort verkoopsopbrengst naar \textit{sellers}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Extra Vereisten}
+    \begin{itemize}
+        \item Installatie serversoftware zo eenvoudig mogelijk
+        \item Bruikbaar vanop laptop/smartphone/tablet/\dots
+        \item Gebruiksvriendelijke gebruikersinterface
+            \begin{itemize}
+                \item Validatie
+                \item Eenvoudig
+                \item Zelfdocumenterend (bv.~tooltips)
+                \item Minimalistisch
+            \end{itemize}
+    \end{itemize}
+\end{frame}
