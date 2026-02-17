@@ -5,12 +5,19 @@
     \frametitle{Architectuur}
     \begin{center}
         \begin{tikzpicture}
-            \node (computer) { \includegraphics[width=2cm]{images/computer.png} } node[anchor=north] at (computer.south) { \parbox{2cm}{\centering TypeScript \\ React \\ Mantine} };
-            \node[anchor=west] (server) at ($ (computer) + (3,0) $) { \includegraphics[width=2cm]{images/server.png} } node[anchor=north] at (server.south) { \parbox{2cm}{\centering Go \\ Gin} };
-            \node[anchor=west] (database) at ($ (server) + (3,0) $) { \includegraphics[width=2cm]{images/database.png} } node[anchor=north] at (database.south) { SQLite3 };
+            \begin{pgfonlayer}{foreground}
+                \node (computer) { \includegraphics[width=2cm]{images/computer.png} } node[anchor=north] at (computer.south) { \parbox{2cm}{\centering TypeScript \\ React \\ Mantine} };
+                \node[anchor=west] (server) at ($ (computer) + (3,0) $) { \includegraphics[width=2cm]{images/server.png} } node[anchor=north] at (server.south) { \parbox{2cm}{\centering Go \\ Gin} };
+                \node[anchor=west] (database) at ($ (server) + (3,0) $) { \includegraphics[width=2cm]{images/database.png} } node[anchor=north] at (database.south) { SQLite3 };
 
-            \draw[-latex,ultra thick] (computer) -- (server) node[midway,above] { JSON };
-            \draw[-latex,ultra thick] (server) -- (database) node[midway,above] { SQL };
+                \draw[-latex,ultra thick] (computer) -- (server) node[midway,above] { JSON };
+                \draw[-latex,ultra thick] (server) -- (database) node[midway,above] { SQL };
+            \end{pgfonlayer}
+
+            \begin{pgfonlayer}{background}
+                \draw[fill=blue!50,opacity=.5] ($ (server.south west) + (-0.5,-2) $) rectangle ($ (database.north east) + (0.5,0.5) $);
+                \node[anchor=south,blue,font=\sc] at ($ (server.south west) ! .50 ! (database.south east) + (0,-2) $) {aws lightsail server};
+            \end{pgfonlayer}
         \end{tikzpicture}
     \end{center}
 
@@ -23,16 +30,37 @@
 
 \begin{frame}
     \frametitle{Motivering}
+    \structure{Waarom \'e\'en server?}
+    \begin{itemize}
+        \item Eenvoud
+        \item Lage kost
+    \end{itemize}
+    \vskip2mm
+    \structure{Waarom LightSail?}
+    \begin{itemize}
+        \item Eenvoud
+        \item Vaste maandelijkse kost
+    \end{itemize}
+    \vskip2mm
+    \structure{Waarom SQLite3?}
+    \begin{itemize}
+        \item Draaien op zelfde server = lagere kost
+        \item Wordt meegelinkt in Go executable
+        \item Geen aparte configuratie nodig
+        \item In memory DB voor tests
+        \item Volledige DB past in \'e\'en bestand
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Motivering}
     \structure{Waarom Go?}
     \begin{itemize}
         \item Garbage collection
-        \item Statisch getypeerd
-        \item Effici\"ent
+        \item Statisch \& sterk getypeerd
+        \item Lightweight
         \item Compilatie leidt tot \'e\'en executable zonder afhankelijkheden dankzij statically linked libraries
-    \end{itemize}
-
-    \structure{Waarom SQLite3?}
-    \begin{itemize}
-        \item
+        \item Heeft nodige libraries (barcode generatie, PDF generatie, \dots)
+        \item (Nieuw voor mij)
     \end{itemize}
 \end{frame}
