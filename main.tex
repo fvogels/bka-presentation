@@ -1,9 +1,10 @@
 \documentclass{beamer}
 \usepackage{tikz}
+\usepackage{listings}
 \usepackage{bbding}
 \usepackage{hyperref}
 
-\usetikzlibrary{calc,shadows}
+\usetikzlibrary{calc,shadows,shapes.multipart,arrows.meta}
 \mode<presentation>
 \usetheme[height=.75cm,compress]{Singapore}
 \setbeamertemplate{navigation symbols}{}
@@ -19,6 +20,21 @@
 \pgfdeclarelayer{background}
 \pgfdeclarelayer{foreground}
 \pgfsetlayers{background,main,foreground}
+
+\lstdefinelanguage{TypeScript}{
+  keywords={typeof,new,true,false,catch,function,return,null,catch,switch,var,if,in,while,do,else,case,break,class,constructor,extends,super,public,readonly,type,abstract,interface,string},
+  keywordstyle=\color{blue}\bfseries,
+  identifierstyle=\color{black},
+  sensitive=false,
+  comment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  commentstyle=\color{purple}\ttfamily,
+  stringstyle=\color{olive}\ttfamily,
+  morestring=[b]',
+  morestring=[b]"
+}
+
+\lstset{basicstyle=\ttfamily\scriptsize,frame=lines}
 
 \begin{document}
 
@@ -37,5 +53,6 @@
 \frame{\tableofcontents[currentsection]}
 \input{bct/analysis}
 \input{bct/architecture}
+\input{bct/design}
 
 \end{document}

@@ -1,0 +1,9 @@
+switch ( restStatus.constructor.name )
+{
+    case 'Loading':
+        // ...
+    case 'Success':
+        // ...
+    case 'Failure':
+        // ...
+}

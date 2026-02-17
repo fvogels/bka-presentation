@@ -1,0 +1,93 @@
+\subsubsection{RestStatus}
+\frame{\tableofcontents[currentsubsection]}
+
+\begin{frame}
+    \frametitle{RestStatus}
+    \structure{Probleemstelling}
+    \begin{itemize}
+        \item Asychrone request heeft drie toestanden
+        \item Mogelijke implementatie:
+    \end{itemize}
+
+    \begin{overprint}
+        \onslide<1>
+        \begin{center}
+            \begin{tikzpicture}[type/.style={minimum width=2cm,minimum height=1cm,fill=white,drop shadow,draw,rectangle split,rectangle split parts=2,font={\tiny}}]
+                \node[type] (reststatus) {\textbf{RestStatus\textless T\textgreater}};
+
+                \node[anchor=west,type] (loading) at ($ (reststatus.south) + (1,-1) $) {
+                    \textbf{Loading\textless T\textgreater}
+                    \nodepart{two}
+                    \parbox{3cm}{\ }
+                };
+
+                \node[anchor=north west,type] (success) at ($ (loading.south west) + (0,-0.5) $) {
+                    \textbf{Success\textless T\textgreater}
+                    \nodepart{two}
+                    \parbox{3cm}{
+                        + value:\ readonly T
+                    }
+                };
+
+                \node[anchor=north west,type] (error) at ($ (success.south west) + (0,-0.5) $) {
+                    \textbf{Error\textless T\textgreater}
+                    \nodepart{two}
+                    \parbox{3cm}{
+                        + tag:\ readonly ErrorTag \\
+                        + details:\ readonly string
+                    }
+                };
+
+                \draw[-{Triangle[open]}] (loading) -| (reststatus);
+                \draw[-{Triangle[open]}] (success) -| (reststatus);
+                \draw[-{Triangle[open]}] (error) -| (reststatus);
+            \end{tikzpicture}
+        \end{center}
+
+        \onslide<2>
+        \lstinputlisting[language=TypeScript]{bct/reststatus-classes.ts}
+
+    \end{overprint}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Probleemstelling}
+    \begin{itemize}
+        \item Toestandsafhankelijke code
+            \begin{itemize}
+                \item Toestand bepaalt welke UI component getoond wordt
+            \end{itemize}
+        \item Exhaustiviteitscheck
+            \begin{itemize}
+                \item Elke toestand moet expliciet afgehandeld worden
+                \item Zoniet compilerfout
+            \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Oplossing \#1: Switch op Type}
+    \lstinputlisting[language=TypeScript]{bct/instanceof.ts}
+    \begin{itemize}
+        \item Fragiel
+        \item Ontbrekende gevallen niet gedetecteerd
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Oplossing \#2: Visitor Design Pattern}
+    \lstinputlisting[language=TypeScript]{bct/visitor.ts}
+    \begin{itemize}
+        \item Robuust, maar zeer omslachtig
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Oplossing \#3: Discriminated Unions}
+    \lstinputlisting[language=TypeScript]{bct/discrimated-union.ts}
+    \begin{itemize}
+        \item Combinatie singleton types en union types
+        \item Robuust
+        \item Lichte syntax
+    \end{itemize}
+\end{frame}
