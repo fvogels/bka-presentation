@@ -27,7 +27,7 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{REST API Tussenpersoon}
+    \frametitle{REST API Server}
     \begin{center}
         \begin{tikzpicture}
             \node (computer) { \includegraphics[width=2cm]{computer.png} } node[anchor=north] at (computer.south) { Client };
@@ -55,7 +55,7 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{GraphQL Tussenpersoon}
+    \frametitle{GraphQL Server}
     \begin{center}
         \begin{tikzpicture}
             \node (computer) { \includegraphics[width=2cm]{computer.png} } node[anchor=north] at (computer.south) { Client };
@@ -80,6 +80,46 @@
         \item[\advantage] Expressieve queries
         \item[\disadvantage] Lichtjes ineffici\"enter
         \item[\disadvantage] Extra ontwikkelingstijd nodig
+        \item[\disadvantage] Complexer te implementeren dan REST
     \end{itemize}
 \end{frame}
 
+\begin{frame}
+    \frametitle{gRPC Server}
+    \begin{center}
+        \begin{tikzpicture}
+            \node (computer) { \includegraphics[width=2cm]{computer.png} } node[anchor=north] at (computer.south) { Client };
+            \node[anchor=west] (server) at ($ (computer) + (3,0) $) { \includegraphics[width=2cm]{server.png} } node[anchor=north] at (server.south) { gRPC };
+            \node[anchor=west] (database) at ($ (server) + (3,0) $) { \includegraphics[width=2cm]{database.png} } node[anchor=north] at (database.south) { Database };
+
+            \draw[-latex,ultra thick] (computer) -- (server) node[midway,above] { JSON };
+            \draw[-latex,ultra thick] (server) -- (database) node[midway,above] { SQL };
+        \end{tikzpicture}
+    \end{center}
+
+    \begin{tikzpicture}[overlay, remember picture]
+        \node[anchor=south east,font=\tiny] at (current page.south east)  {
+            images: Flaticon.com
+        };
+    \end{tikzpicture}
+
+    \begin{itemize}
+        \item[\advantage] Veilig
+        \item[\advantage] Business logic op eigen server
+        \item[\advantage] Schaleerbaar
+        \item[\advantage] Expressieve queries
+        \item[\advantage] Zeer effici\"ent
+        \item[\disadvantage] Extra ontwikkelingstijd nodig
+        \item[\disadvantage] Complexer te implementeren dan REST
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Gemaakte Keuze: REST API}
+    \begin{itemize}
+        \item Eenvoudig
+        \item Industri\"ele standaard
+        \item GraphQL: voordelen (flexibiliteit) wegen niet op tegen nadelen (implementatiecomplexiteit)
+        \item gRPC legt nadruk op functies, REST op data
+    \end{itemize}
+\end{frame}
