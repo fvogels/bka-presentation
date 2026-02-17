@@ -1,0 +1,112 @@
+\section{Implementatie}
+\frame{\tableofcontents[currentsubsection]}
+
+\begin{frame}
+    \frametitle{Implementatie}
+    \begin{center}
+        \href{http://kulbka.myaddr.io/}{http://kulbka.myaddr.io/}
+    \end{center}
+    \vskip4mm
+    \begin{center}
+        \begin{tikzpicture}
+            \node (computer) { \includegraphics[width=2cm]{images/computer.png} } node[anchor=north] at (computer.south) { \parbox{2cm}{\centering TypeScript \\ React \\ Mantine} };
+            \node[anchor=west] (server) at ($ (computer) + (3,0) $) { \includegraphics[width=2cm]{images/server.png} } node[anchor=north] at (server.south) { \parbox{2cm}{\centering Go \\ Gin} };
+            \node[anchor=west] (database) at ($ (server) + (3,0) $) { \includegraphics[width=2cm]{images/database.png} } node[anchor=north] at (database.south) { SQLite3 };
+
+            \draw[-latex,ultra thick] (computer) -- (server) node[midway,above] { JSON };
+            \draw[-latex,ultra thick] (server) -- (database) node[midway,above] { SQL };
+        \end{tikzpicture}
+    \end{center}
+
+    \begin{tikzpicture}[overlay, remember picture]
+        \node[anchor=south east,font=\tiny] at (current page.south east)  {
+            images: Flaticon.com
+        };
+    \end{tikzpicture}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Implementatie}
+    \begin{itemize}
+        \item Code op GitHub
+            \begin{itemize}
+                \item Frontend: \href{https://github.com/fvogels/bka-frontend}{github.com/fvogels/bka-frontend}
+                \item Backend: \href{https://github.com/fvogels/bka-backend}{github.com/fvogels/bka-backend}
+            \end{itemize}
+        \item GitHub Actions voor het builden
+        \item AWS LightSail voor het hosten
+            \begin{itemize}
+                \item nginx
+            \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Backend Design}
+    \begin{columns}
+        \begin{column}{.5\textwidth}
+            \begin{tikzpicture}[module/.style={minimum width=2.5cm,minimum height=1cm,draw,thick,drop shadow,fill=white},
+                                dependency/.style={-latex,thick}]
+                \node[module] (model) {\alert<2>{Model}};
+                \node[module] (database) at ($ (model) + (0, 2) $) {\alert<3>{Database}};
+                \node[module] (cli) at ($ (database) + (-1.5, 2) $) {\alert<4>{CLI}};
+                \node[module] (rest) at ($ (database) + (1.5, 2) $) {\alert<5>{REST API}};
+
+                \draw[dependency] (database) -- (model);
+                \draw[dependency] (cli) -- ++(0,-1)  -| (database);
+                \draw[dependency] (rest) -- ++(0,-1) -| (database);
+                \draw[dependency] (cli) -- (rest);
+            \end{tikzpicture}
+        \end{column}
+        \begin{column}{.5\textwidth}
+            \begin{overprint}
+                \onslide<2>
+                \structure{Model}
+                \begin{itemize}
+                    \item Metadata tabellen
+                    \item Types overeenkomstig domein
+                        \begin{itemize}
+                            \item Validatie
+                            \item Formatting
+                        \end{itemize}
+                \end{itemize}
+
+                \onslide<3>
+                \structure{Database}
+                \begin{itemize}
+                    \item Squirrel voor opbouw SQL
+                        \begin{itemize}
+                            \item Tegen SQL injection
+                        \end{itemize}
+                    \item Modulaire query-functionaliteit
+                        \begin{itemize}
+                            \item Filtering
+                            \item Paginering
+                        \end{itemize}
+                \end{itemize}
+
+                \onslide<4>
+                \structure{CLI}
+                \begin{itemize}
+                    \item Cobra library
+                    \item Handig voor debuggen
+                    \item Admin functionaliteit
+                    \item Ondersteunt verbose mode
+                    \item Configuratieopties
+                \end{itemize}
+
+                \onslide<5>
+                \structure{REST API}
+                \begin{itemize}
+                    \item Gin library
+                    \item E\'en endpoint (\texttt{/api/v1/documents})
+                    \item Query parameters voor filters/paginering
+                \end{itemize}
+            \end{overprint}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Front-End Design}
+\end{frame}

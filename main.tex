@@ -1,11 +1,16 @@
 \documentclass{beamer}
 \usepackage{tikz}
 \usepackage{bbding}
+\usepackage{hyperref}
 
-\usetikzlibrary{calc}
+\usetikzlibrary{calc,shadows}
 \mode<presentation>
 \usetheme[height=.75cm,compress]{Singapore}
 \setbeamertemplate{navigation symbols}{}
+
+\title{Jobinterview}
+\author{Fr\'ed\'eric Vogels}
+\date{19 Februari 2026}
 
 \newcommand{\advantage}{\Checkmark}
 \newcommand{\disadvantage}{\XSolidBrush}
@@ -13,10 +18,15 @@
 
 \begin{document}
 
+\frame{\titlepage}
+
 \section{Digitale Assistent}
-\input{bookkeeping/analysis}
-\input{bookkeeping/frontends}
-\input{bookkeeping/architectures}
-\input{bookkeeping/technologies}
+\frame{\tableofcontents[currentsection]}
+% \input{bookkeeping/analysis}
+% \input{bookkeeping/frontends}
+% \input{bookkeeping/architectures}
+% \input{bookkeeping/technologies}
+\input{bookkeeping/implementation}
+% \input{bookkeeping/future}
 
 \end{document}
