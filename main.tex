@@ -1,12 +1,28 @@
 \documentclass{beamer}
+\usepackage{tikz}
+\usepackage{bbding}
+
+\usetikzlibrary{calc}
+\mode<presentation>
+\usetheme[height=.75cm,compress]{Singapore}
+\setbeamertemplate{navigation symbols}{}
+
+\newcommand{\advantage}{\Checkmark}
+\newcommand{\disadvantage}{\XSolidBrush}
 
 \begin{document}
 
-\begin{frame}
-    \frametitle{Hello world!}
-    \begin{itemize}
-        \item Here I am
-    \end{itemize}
-\end{frame}
+\section{Digitale Assistent}
+\input{analysis}
+\input{frontends}
+\input{architectures}
+
+% Choices to be made
+%  - Architectural
+%    - Direct connection to DB? REST API? GraphQL?
+%  - Technology
+%    - Quick development/scaling
+%    - Available proficiency in team?
+
 
 \end{document}
