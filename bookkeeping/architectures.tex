@@ -61,7 +61,7 @@
             \node[anchor=west] (server) at ($ (computer) + (3,0) $) { \includegraphics[width=2cm]{images/server.png} } node[anchor=north] at (server.south) { GraphQL API };
             \node[anchor=west] (database) at ($ (server) + (3,0) $) { \includegraphics[width=2cm]{images/database.png} } node[anchor=north] at (database.south) { Database };
 
-            \draw[-latex,ultra thick] (computer) -- (server) node[midway,above] { JSON };
+            \draw[-latex,ultra thick] (computer) -- (server);
             \draw[-latex,ultra thick] (server) -- (database) node[midway,above] { SQL };
         \end{tikzpicture}
     \end{center}
@@ -76,8 +76,7 @@
         \item[\advantage] Veilig
         \item[\advantage] Business logic op eigen server
         \item[\advantage] Schaleerbaar
-        \item[\advantage] Expressieve queries
-        \item[\disadvantage] Extra ontwikkelingstijd nodig
+        \item[\advantage] Expressieve queries \\[5mm]
         \item[\disadvantage] Complexere ontwikkeling dan REST
     \end{itemize}
 \end{frame}
@@ -90,7 +89,7 @@
             \node[anchor=west] (server) at ($ (computer) + (3,0) $) { \includegraphics[width=2cm]{images/server.png} } node[anchor=north] at (server.south) { gRPC };
             \node[anchor=west] (database) at ($ (server) + (3,0) $) { \includegraphics[width=2cm]{images/database.png} } node[anchor=north] at (database.south) { Database };
 
-            \draw[-latex,ultra thick] (computer) -- (server) node[midway,above] { JSON };
+            \draw[-latex,ultra thick] (computer) -- (server) node[midway,above,font=\tiny] { binaire data };
             \draw[-latex,ultra thick] (server) -- (database) node[midway,above] { SQL };
         \end{tikzpicture}
     \end{center}
@@ -106,7 +105,6 @@
         \item[\advantage] Business logic op eigen server
         \item[\advantage] Schaleerbaar
         \item[\advantage] Zeer effici\"ent \\[5mm]
-        \item[\disadvantage] Extra ontwikkelingstijd nodig
         \item[\disadvantage] Complexere ontwikkeling dan REST
     \end{itemize}
 \end{frame}
