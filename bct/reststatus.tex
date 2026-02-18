@@ -66,7 +66,7 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{Poging \#1: Switch op Type}
+    \frametitle{Poging \#1: Switchen op Type}
     \lstinputlisting[language=TypeScript]{bct/instanceof.ts}
     \begin{itemize}
         \item Fragiel
@@ -80,7 +80,16 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{Poging \#2: Visitor Design Pattern}
+    \frametitle{Poging \#2: Manuele Type Switch}
+    \lstinputlisting[language=TypeScript]{bct/typeswitch.ts}
+    \begin{itemize}
+        \item Geen exhaustiviteitscheck
+        \item Strings kunnen mistypt worden
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Poging \#3: Visitor Design Pattern}
     \lstinputlisting[language=TypeScript]{bct/visitor.ts}
     \begin{itemize}
         \item Robuust, maar zeer omslachtig
@@ -88,7 +97,7 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{Poging \#3: Discriminated Unions}
+    \frametitle{Uiteindelijke Keuze: Discriminated Unions}
     \lstinputlisting[language=TypeScript]{bct/discrimated-union.ts}
     \begin{itemize}
         \item Combinatie singleton types en union types
