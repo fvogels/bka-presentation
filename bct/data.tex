@@ -1,0 +1,67 @@
+\subsubsection{Observable Variables}
+\frame{\tableofcontents[currentsubsection]}
+
+\begin{frame}
+    \frametitle{Probleemstelling}
+    \begin{itemize}
+        \item TUI
+        \item Scheiding modellaag en presentatielaag
+        \item Domein bevat data
+        \item Presentatielaag krijgt \texttt{View}s, mogelijk transformaties van domeinwaardes
+        \item Presentatielaag wil weten of waarde gewijzigd is
+        \item Geen universele \texttt{equals} beschikbaar
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Design}
+    \begin{center}
+        \begin{tikzpicture}
+            \draw[ultra thick] (0,0) -- (8,0);
+            \node[anchor=south west] at (0,0) {Presentatie};
+            \node[anchor=north west] at (0,0) {Domein};
+
+            \node[anchor=north,font=\tiny,rectangle split,rectangle split parts=2,draw,inner sep=2pt] (item) at (4, -0.5) {
+                \textbf{Item}
+                \nodepart{two}
+                \begin{tabular}{ll}
+                    \textbf{Description} & "Blue shirt" \\
+                    \textbf{Price} & 5 \\
+                    \textbf{Category} & "Clothing 3-6 mos (56-62)" \\
+                    \textbf{Donate} & true \\
+                \end{tabular}
+            };
+
+            \node[anchor=south] at (4,0.2) { \includegraphics[height=3cm]{images/presentation.png} };
+        \end{tikzpicture}
+    \end{center}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Design}
+    \begin{center}
+        \begin{tikzpicture}[type/.style={minimum width=2cm,minimum height=1cm,fill=white,drop shadow,draw,rectangle split,font={\tiny}},
+                            class/.style={type,rectangle split parts=3},
+                            interface/.style={type,rectangle split parts=3}]
+            \node[interface] (value) {
+                \parbox{2cm}{
+                    \centering
+                    \textit{\textless\!\!\textless interface\textgreater\!\!\textgreater}\\
+                    \textbf{Value[T any]}
+                }
+                \nodepart{three}
+                \parbox{2cm}{
+                    Get():\ T \\
+                    Version():\ int
+                }
+            };
+        \end{tikzpicture}
+    \end{center}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Design}
+    \begin{center}
+        \lstinputlisting[language=Go]{bct/valuemaps.go}
+    \end{center}
+\end{frame}

@@ -34,6 +34,19 @@
   morestring=[b]"
 }
 
+\lstdefinelanguage{Go}{
+  keywords={true,false,func,return,nil,var},
+  keywordstyle=\color{blue}\bfseries,
+  identifierstyle=\color{black},
+  sensitive=false,
+  comment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  commentstyle=\color{purple}\ttfamily,
+  stringstyle=\color{olive}\ttfamily,
+  morestring=[b]',
+  morestring=[b]"
+}
+
 \lstset{basicstyle=\ttfamily\scriptsize,frame=lines}
 
 \begin{document}
@@ -51,8 +64,8 @@
 
 \section{BCT Sales Website}
 \frame{\tableofcontents[currentsection]}
-\input{bct/analysis}
-\input{bct/architecture}
+% \input{bct/analysis}
+% \input{bct/architecture}
 \input{bct/design}
 
 \end{document}

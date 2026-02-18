@@ -1,5 +1,3 @@
-type ErrorTag = 'NoSuchItem' | 'NoSuchUser';
-
 abstract class Status<T> { }
 
 class Loading<T> extends Status<T> {

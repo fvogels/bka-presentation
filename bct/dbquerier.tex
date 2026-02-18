@@ -1,0 +1,91 @@
+\subsubsection{DatabaseQuerier}
+\frame{\tableofcontents[currentsubsection]}
+
+\begin{frame}
+    \frametitle{Probleemstelling}
+    \begin{center}
+        \begin{tikzpicture}[type/.style={minimum width=2cm,minimum height=1cm,fill=white,drop shadow,draw,rectangle split,rectangle split parts=3,font={\tiny}}]
+            \node[type] (db) {
+                \textbf{sql.DB}
+                \nodepart{three}
+                \parbox{2.56cm}{
+                    + Query(string):\ sql.Result \\
+                    + BeginTX():\ *sql.Tx
+                }
+            };
+
+            \node[type,anchor=north west] (tx) at ($ (db.north east) + (1,0) $) {
+                \textbf{sql.Tx}
+                \nodepart{three}
+                \parbox{2.5cm}{
+                    + Query(string):\ sql.Result \\
+                    + Commit() \\
+                    + Rollback()
+                }
+            };
+        \end{tikzpicture}
+    \end{center}
+
+    \begin{itemize}
+        \item Go's \texttt{sql} library biedt twee types aan voor DB queries
+            \begin{itemize}
+                \item \texttt{sql.DB}
+                \item \texttt{sql.Tx} voor transacties
+            \end{itemize}
+        \item Twee types queryfuncties
+            \begin{itemize}
+                \item Zij die zowel binnen als buiten transacties werken
+                \item Zij die enkel binnen transacties werken
+            \end{itemize}
+        \item Transactie moeten uiteindelijk altijd oftewel \'e\'enmaal gecommit oftewel \'e\'enmaal gerollbackt worden
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Oplossing \#1: Interface Invoeren}
+    \begin{center}
+        \begin{tikzpicture}[type/.style={minimum width=2cm,minimum height=1cm,fill=white,drop shadow,draw,rectangle split,font={\tiny}},
+                            class/.style={type,rectangle split parts=3},
+                            interface/.style={type,rectangle split parts=3}]
+            \node[interface] (querier) {
+                \parbox{3cm}{
+                    \centering
+                    \textit{\textless\!\!\textless interface\textgreater\!\!\textgreater}\\
+                    \textbf{DatabaseQuerier}
+                }
+                \nodepart{three}
+                \parbox{2.5cm}{
+                    + Query(string):\ sql.Result \\
+                    + BeginTx():\ *sql.Tx \\
+                    + Commit() \\
+                    + Rollback()
+                }
+            };
+
+            \node[class,anchor=north east] (db) at ($ (querier.south) + (-1,-1) $) {
+                \textbf{sql.DB}
+                \nodepart{three}
+                \parbox{2.5cm}{
+                    + Query(string):\ sql.Result \\
+                    + BeginTx():\ *sql.Tx \\
+                    + Commit() \\
+                    + Rollback()
+                }
+            };
+
+            \node[class,anchor=west] (tx) at ($ (db.east) + (2,0) $) {
+                \textbf{sql.Tx}
+                \nodepart{three}
+                \parbox{2.5cm}{
+                    + Query(string):\ sql.Result \\
+                    + BeginTx():\ *sql.Tx \\
+                    + Commit() \\
+                    + Rollback()
+                }
+            };
+
+            \draw[-{Triangle[open]},thick,dashed] (db.east) -| (querier.south);
+            \draw[-{Triangle[open]},thick,dashed] (tx.west) -| (querier.south);
+        \end{tikzpicture}
+    \end{center}
+\end{frame}

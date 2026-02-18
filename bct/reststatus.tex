@@ -5,10 +5,10 @@
     \frametitle{RestStatus}
     \structure{Probleemstelling}
     \begin{itemize}
+        \item In front-end code (TypeScript)
         \item Asychrone request heeft drie toestanden
-        \item Mogelijke implementatie:
     \end{itemize}
-
+    \vskip2mm
     \begin{overprint}
         \onslide<1>
         \begin{center}
@@ -66,7 +66,7 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{Oplossing \#1: Switch op Type}
+    \frametitle{Poging \#1: Switch op Type}
     \lstinputlisting[language=TypeScript]{bct/instanceof.ts}
     \begin{itemize}
         \item Fragiel
@@ -75,7 +75,7 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{Oplossing \#2: Visitor Design Pattern}
+    \frametitle{Poging \#2: Visitor Design Pattern}
     \lstinputlisting[language=TypeScript]{bct/visitor.ts}
     \begin{itemize}
         \item Robuust, maar zeer omslachtig
@@ -83,7 +83,7 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{Oplossing \#3: Discriminated Unions}
+    \frametitle{Poging \#3: Discriminated Unions}
     \lstinputlisting[language=TypeScript]{bct/discrimated-union.ts}
     \begin{itemize}
         \item Combinatie singleton types en union types
