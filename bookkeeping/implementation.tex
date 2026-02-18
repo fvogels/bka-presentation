@@ -36,6 +36,7 @@
         \item GitHub Actions voor het builden
         \item AWS LightSail voor het hosten
             \begin{itemize}
+                \item Linux
                 \item nginx
             \end{itemize}
     \end{itemize}
@@ -48,7 +49,7 @@
             \begin{tikzpicture}[module/.style={minimum width=2.5cm,minimum height=1cm,draw,thick,drop shadow,fill=white},
                                 dependency/.style={-latex,thick}]
                 \node[module] (model) {\alert<2>{Model}};
-                \node[module] (database) at ($ (model) + (0, 2) $) {\alert<3>{Database}};
+                \node[module] (database) at ($ (model) + (0, 1.5) $) {\alert<3>{Database}};
                 \node[module] (cli) at ($ (database) + (-1.5, 2) $) {\alert<4>{CLI}};
                 \node[module] (rest) at ($ (database) + (1.5, 2) $) {\alert<5>{REST API}};
 
