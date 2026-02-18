@@ -4,10 +4,17 @@
 \begin{frame}
     \frametitle{Probleemstelling}
     \begin{itemize}
-        \item TUI
-        \item Scheiding modellaag en presentatielaag
-        \item Domein bevat data
-        \item UI componenten krijgen elk klein stuk van domeindata te zien
+        \item TUI voor admins (work in progress)
+        \item Scheiding domainlaag en presentatielaag
+            \begin{itemize}
+                \item Domein bevat data
+                \item UI componenten krijgen elk klein stuk van domeindata te zien
+            \end{itemize}
+        \item Robuust
+            \begin{itemize}
+                \item Bugbestendig design
+                \item Declaratieve stijl
+            \end{itemize}
     \end{itemize}
 \end{frame}
 
@@ -16,10 +23,10 @@
     \begin{center}
         \begin{tikzpicture}
             \draw[ultra thick] (0,0) -- (8,0);
-            \node[anchor=south west] at (0,0) {Presentatie};
-            \node[anchor=north west] at (0,0) {Domein};
+            \node[anchor=south west,font={\sc\tiny}] at (0,0) {Presentatielaag};
+            \node[anchor=north west,font={\sc\tiny}] at (0,0) {Domeinlaag};
 
-            \node[anchor=north,font=\tiny,rectangle split,rectangle split parts=2,draw,inner sep=2pt] (item) at (4, -0.5) {
+            \node[anchor=north,font=\tiny,rectangle split,rectangle split parts=2,draw,inner sep=2pt] (item) at (4, -0.25) {
                 \textbf{Item}
                 \nodepart{two}
                 \begin{tabular}{ll}
@@ -30,7 +37,7 @@
                 \end{tabular}
             };
 
-            \node[anchor=south] at (4,0.2) { \includegraphics[height=3cm]{images/presentation.png} };
+            \node[anchor=south] at (4,0.25) { \includegraphics[height=3cm]{images/presentation.png} };
         \end{tikzpicture}
     \end{center}
 \end{frame}
@@ -240,6 +247,6 @@
         \item Oorspronkelijk werkte TUI met observeerbare variabelen
         \item Observers kregen echter inconsistente data te zien
         \item Manier nodig om observer-updates te groeperen
-        \item Laziness werd hiervoor ingevoerd
+        \item Pull i.p.v. push als oplossing
     \end{itemize}
 \end{frame}

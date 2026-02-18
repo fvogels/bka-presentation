@@ -2,7 +2,9 @@
 \usepackage{tikz}
 \usepackage{listings}
 \usepackage{bbding}
+\usepackage{booktabs}
 \usepackage{hyperref}
+
 
 \usetikzlibrary{calc,shadows,shapes.multipart,arrows.meta}
 \mode<presentation>
@@ -15,7 +17,9 @@
 
 \newcommand{\advantage}{\Checkmark}
 \newcommand{\disadvantage}{\XSolidBrush}
-\newcommand{\csharp}{C\ensuremath{\sharp}}
+\newcommand{\csharp}{C\ensuremath{^\sharp}}
+\newcommand{\cpp}{C\ensuremath{++}}
+\newcommand{\rating}[1]{\foreach \x in {1,...,#1} {$\star$}}
 
 \pgfdeclarelayer{background}
 \pgfdeclarelayer{foreground}
@@ -54,19 +58,23 @@
 
 \frame{\titlepage}
 
-\section{Digitale Assistent}
-% \frame{\tableofcontents[currentsection]}
-\input{bookkeeping/analysis}
-\input{bookkeeping/frontends}
-\input{bookkeeping/architectures}
-\input{bookkeeping/technologies}
-\input{bookkeeping/implementation}
-\input{bookkeeping/future}
+% \section{Digitale Assistent}
+% % \frame{\tableofcontents[currentsection]}
+% \input{bookkeeping/analysis}
+% \input{bookkeeping/frontends}
+% \input{bookkeeping/architectures}
+% \input{bookkeeping/technologies}
+% \input{bookkeeping/implementation}
+% \input{bookkeeping/future}
 
-\section{BCT Sales Website}
-% \frame{\tableofcontents[currentsection]}
-\input{bct/analysis}
-\input{bct/architecture}
-\input{bct/design}
+% \section{BCT Sales Website}
+% % \frame{\tableofcontents[currentsection]}
+% \input{bct/analysis}
+% \input{bct/architecture}
+% \input{bct/design}
+
+\section{Fin}
+\frame{\tableofcontents[currentsection]}
+\input{fin}
 
 \end{document}

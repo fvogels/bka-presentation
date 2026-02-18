@@ -1,7 +1,7 @@
 descriptionTextInput := textinput.New(
-	data.View(data.Cache(description))
+	data.NewView(data.Cache(description))
 )
 
 priceNumberInput := numberinput.New(
-	data.View(data.Cache(price))
+	data.NewView(data.Cache(price))
 )
