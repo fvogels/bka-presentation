@@ -7,9 +7,7 @@
         \item TUI
         \item Scheiding modellaag en presentatielaag
         \item Domein bevat data
-        \item Presentatielaag krijgt \texttt{View}s, mogelijk transformaties van domeinwaardes
-        \item Presentatielaag wil weten of waarde gewijzigd is
-        \item Geen universele \texttt{equals} beschikbaar
+        \item UI componenten krijgen elk klein stuk van domeindata te zien
     \end{itemize}
 \end{frame}
 
@@ -51,10 +49,51 @@
                 }
                 \nodepart{three}
                 \parbox{2cm}{
-                    Get():\ T \\
-                    Version():\ int
+                    + Get():\ T
                 }
             };
+
+            \node[class,anchor=north east] (variable) at ($ (value.south west) + (-1,-1) $) {
+                \textbf{Variable[T any]}
+                \nodepart{two}
+                \parbox{2cm}{
+                    - value: T
+                }
+                \nodepart{three}
+                \parbox{2cm}{
+                    + Get():\ T \\
+                    + Set(T)
+                }
+            };
+
+            \node[class,anchor=north] (constant) at ($ (value.south) + (0,-1) $) {
+                \textbf{Constant[T any]}
+                \nodepart{two}
+                \parbox{2cm}{
+                    - value:\ T
+                }
+                \nodepart{three}
+                \parbox{2cm}{
+                    + Get():\ T
+                }
+            };
+
+            \node[class,anchor=north west] (mappedvalue) at ($ (value.south east) + (1,-1) $) {
+                \textbf{MappedValue[T, R any]}
+                \nodepart{two}
+                \parbox{2.25cm}{
+                    - argument:\ Value[T] \\
+                    - transformer:\ func(T) R
+                }
+                \nodepart{three}
+                \parbox{2cm}{
+                    + Get():\ T
+                }
+            };
+
+            \draw[-{Triangle[open]},thick,dashed] (variable.north) |- (value.west);
+            \draw[-{Triangle[open]},thick,dashed] (constant.north) -- (value.south);
+            \draw[-{Triangle[open]},thick,dashed] (mappedvalue.north) |- (value.east);
         \end{tikzpicture}
     \end{center}
 \end{frame}
@@ -64,4 +103,143 @@
     \begin{center}
         \lstinputlisting[language=Go]{bct/valuemaps.go}
     \end{center}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Caching}
+    \begin{itemize}
+        \item Sommige transformaties zijn rekenintensief
+        \item Caching
+        \item Cache moet kunnen detecteren of herberekening nodig is
+        \item Go biedt geen universele \texttt{equals} methode aan
+        \item We werken daarom met versienummers
+        \item Alternatief: elke value voorzien van een \texttt{func(T, T) bool}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Design}
+    \begin{center}
+        \begin{tikzpicture}[type/.style={minimum width=2cm,minimum height=1cm,fill=white,drop shadow,draw,rectangle split,font={\tiny}},
+                            class/.style={type,rectangle split parts=3},
+                            interface/.style={type,rectangle split parts=3}]
+            \node[interface] (value) {
+                \parbox{2cm}{
+                    \centering
+                    \textit{\textless\!\!\textless interface\textgreater\!\!\textgreater}\\
+                    \textbf{Value[T any]}
+                }
+                \nodepart{three}
+                \parbox{2cm}{
+                    + Get():\ T \\
+                    \alert{+ Version():\ uint}
+                }
+            };
+
+            \node[class,anchor=north east] (variable) at ($ (value.south west) + (-1,-1) $) {
+                \textbf{Variable[T any]}
+                \nodepart{two}
+                \parbox{2cm}{
+                    - value: T \\
+                    \alert{- version: uint}
+                }
+                \nodepart{three}
+                \parbox{2cm}{
+                    + Get():\ T \\
+                    + Set(T) \\
+                    \alert{+ Version():\ uint}
+                }
+            };
+
+            \node[class,anchor=north] (constant) at ($ (value.south) + (0,-1) $) {
+                \textbf{Constant[T any]}
+                \nodepart{two}
+                \parbox{2cm}{
+                    - value:\ T
+                }
+                \nodepart{three}
+                \parbox{2cm}{
+                    + Get():\ T \\
+                    \alert{+ Version():\ uint}
+                }
+            };
+
+            \node[class,anchor=north west] (cache) at ($ (value.south east) + (1,-1) $) {
+                \textbf{Cache[T any]}
+                \nodepart{two}
+                \parbox{2.25cm}{
+                    - value:\ Value[T] \\
+                    - cached:\ T \\
+                    - cachedVersion:\ uint
+                }
+                \nodepart{three}
+                \parbox{2cm}{
+                    + Get():\ T \\
+                    + Version():\ uint
+                }
+            };
+
+            \draw[-{Triangle[open]},thick,dashed] (variable.north) |- (value.west);
+            \draw[-{Triangle[open]},thick,dashed] (constant.north) -- (value.south);
+            \draw[-{Triangle[open]},thick,dashed] (mappedvalue.north) |- (value.east);
+        \end{tikzpicture}
+    \end{center}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Design}
+    \begin{itemize}
+        \item UI controls willen kunnen detecteren of waarde ge\"updatet werd sinds laatste rendering
+        \item \texttt{View[T]} houdt bij welke versie laatst opgevraagd werd
+    \end{itemize}
+    \begin{center}
+        \begin{tikzpicture}[type/.style={minimum width=2cm,minimum height=1cm,fill=white,drop shadow,draw,rectangle split,font={\tiny}},
+                            class/.style={type,rectangle split parts=3},
+                            interface/.style={type,rectangle split parts=3}]
+            \node[interface] (value) {
+                \parbox{2cm}{
+                    \centering
+                    \textit{\textless\!\!\textless interface\textgreater\!\!\textgreater}\\
+                    \textbf{Value[T any]}
+                }
+                \nodepart{three}
+                \parbox{2cm}{
+                    + Get():\ T \\
+                    \alert{+ Version():\ uint}
+                }
+            };
+
+            \node[class,anchor=north] (view) at ($ (value.south) + (0,-1) $) {
+                \textbf{View[T any]}
+                \nodepart{two}
+                \parbox{2.5cm}{
+                    - value:\ Value[T] \\
+                    - versionLastChecked:\ uint
+                }
+                \nodepart{three}
+                \parbox{2.5cm}{
+                    + Get():\ T \\
+                    + Version():\ uint \\
+                    + Updated():\ bool
+                }
+            };
+
+            \draw[-{Triangle[open]},thick,dashed] (view.north) -- (value.south);
+        \end{tikzpicture}
+    \end{center}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Design}
+    \lstinputlisting[language=Go]{bct/valueexample.go}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Design}
+    \begin{itemize}
+        \item Oorspronkelijk werkte TUI met observeerbare variabelen
+        \item Observers kregen echter inconsistente data te zien
+        \item Manier nodig om observer-updates te groeperen
+        \item Laziness werd hiervoor ingevoerd
+    \end{itemize}
 \end{frame}

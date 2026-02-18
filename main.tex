@@ -35,7 +35,7 @@
 }
 
 \lstdefinelanguage{Go}{
-  keywords={true,false,func,return,nil,var},
+  keywords={true,false,func,return,nil,var,bool,string},
   keywordstyle=\color{blue}\bfseries,
   identifierstyle=\color{black},
   sensitive=false,
@@ -44,7 +44,8 @@
   commentstyle=\color{purple}\ttfamily,
   stringstyle=\color{olive}\ttfamily,
   morestring=[b]',
-  morestring=[b]"
+  morestring=[b]",
+  tabsize=4
 }
 
 \lstset{basicstyle=\ttfamily\scriptsize,frame=lines}
@@ -53,19 +54,19 @@
 
 \frame{\titlepage}
 
-% \section{Digitale Assistent}
-% \frame{\tableofcontents[currentsection]}
-% \input{bookkeeping/analysis}
-% \input{bookkeeping/frontends}
-% \input{bookkeeping/architectures}
-% \input{bookkeeping/technologies}
-% \input{bookkeeping/implementation}
-% \input{bookkeeping/future}
+\section{Digitale Assistent}
+\frame{\tableofcontents[currentsection]}
+\input{bookkeeping/analysis}
+\input{bookkeeping/frontends}
+\input{bookkeeping/architectures}
+\input{bookkeeping/technologies}
+\input{bookkeeping/implementation}
+\input{bookkeeping/future}
 
 \section{BCT Sales Website}
 \frame{\tableofcontents[currentsection]}
-% \input{bct/analysis}
-% \input{bct/architecture}
+\input{bct/analysis}
+\input{bct/architecture}
 \input{bct/design}
 
 \end{document}
